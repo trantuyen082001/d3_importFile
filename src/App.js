@@ -3,7 +3,7 @@ import axios from 'axios'
 import * as d3 from 'd3'
 import Chart from './Chart/Chart';
 import { color } from 'd3';
-// import "./style.css";
+import "./style.css";
 
 
 function App() {
@@ -23,6 +23,11 @@ function App() {
           console.log("failed loading data", error)
       }
   },[])
+
+  const year = {
+    name: 'year',
+    items: showData.map((d) => (d.Year))
+  }
 
   const days = {
     name: 'days',
@@ -56,8 +61,8 @@ function App() {
   return (
     <div className='App'>
         <Chart
-          // data={[days, months, years]}
-          // dimensions={dimensions}
+          data={[year, days, months, years]}
+          dimensions={dimensions}
         />
     </div>
   );
