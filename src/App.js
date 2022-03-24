@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import * as d3 from 'd3'
 import Chart from './Chart/Chart';
+import Histogram from './Chart/Histogram'
 import "./style.css";
 
 
@@ -101,14 +102,15 @@ function App() {
   const daysData = {
     name: "0-27 days",
     color: "#ffffff",
-    items: showData.map((d) => ({ value: d['0-27 days'], date: d3.timeParse("%Y")(d.Year) }))
+    items: showData.map((d) => ({ value: d['0-27 days'], date: new Date(d.Year) }))
   }
 
+  console.log(daysData.items)
 
   const monthsData = {
     name: "1-59 months",
     color: "#d53e4f",
-    items: showData.map((d) => ({ value: d['1-59 months'], date: new Date(d.Year) }))
+    items: showData.map((d) => ({ value: d['1-59 months'], date: new Date(d.Year)}))
   }
   const yearsData = {
     name: "1-4 years",
@@ -116,9 +118,12 @@ function App() {
     items: showData.map((d) => ({ value: d['1-4 years'], date: new Date(d.Year) }))
   }
 
+
+
+
   const dimensions = {
-    width: 800,
-    height: 400,
+    width: 900,
+    height: 500,
     margin: {
       top: 30,
       right: 30,
@@ -127,8 +132,7 @@ function App() {
     }
   };
 
-  console.log(yearsData)
-  
+console.log(showData)  
   // console.log(RegionData)
 
   return (
@@ -136,7 +140,7 @@ function App() {
       <BrowserRouter>
         <Routes>
            <Route path='/chart' element={<Chart data={[daysData, monthsData, yearsData]} dimensions={dimensions}/>}/>
-           {/* <Route path='/histogram' element={<Histogram attr = {[RegionData, yearX]} data={[dateValue, monthValue, yearValue]} dimensions={dimensions}/>}/> */}
+           <Route path='/histogram' element={<Histogram data={[daysData, monthsData, yearsData]} dimensions={dimensions}/>}/>
         </Routes>
       </BrowserRouter>
     </div>
