@@ -7,3 +7,12 @@ body {
     display: inline-block;
   }
   
+  .legendContainer {
+    display: flex;
+    justify-content: center;
+    transform: translateY(-89px);
+  }
+  .checkbox {
+    margin: 10px;
+  }
+  

@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import * as d3 from 'd3'
 import Chart from './Chart/Chart';
 import Histogram from './Chart/Histogram'
+import Legend from './view/Legend';
 import "./style.css";
 
 
@@ -38,8 +39,8 @@ function App() {
 
   // const nameRegion =  unique(region)
 
-//   const checkRegion = [...new Set(showData.map((d) => d.Region))]
-//   console.log(checkRegion)
+  const checkRegion = [...new Set(showData.map((d) => d.Region))]
+  console.log(checkRegion)
 
 //   console.log(showData)
 
@@ -120,7 +121,6 @@ function App() {
 
 
 
-
   const dimensions = {
     width: 900,
     height: 500,
@@ -134,12 +134,35 @@ function App() {
 
 console.log(showData)  
   // console.log(RegionData)
+  const [selectedItems, setSelectedItems] = useState([]);
+  const legendData = [daysData, monthsData, yearsData];
+  const chartData = [
+    daysData,
+    ...[monthsData, yearsData].filter((d) => selectedItems.includes(d.name))
+  ];
+
+
+  const onChangeSelection = (name) => {
+    const newSelectedItems = selectedItems.includes(name)
+     ? selectedItems.filter((item) => item !== name)
+     : [...selectedItems, name];
+    setSelectedItems(newSelectedItems); 
+  }
+
 
   return (
     <div className='App'>
       <BrowserRouter>
         <Routes>
-           <Route path='/chart' element={<Chart data={[daysData, monthsData, yearsData]} dimensions={dimensions}/>}/>
+           <Route 
+                path='/chart' 
+                element={
+                  <>
+                    <Chart data={chartData} dimensions={dimensions}/>
+                    <Legend data={legendData} selectedItems={selectedItems} onChange = {onChangeSelection} />
+                  </>
+                }
+            />
            <Route path='/histogram' element={<Histogram data={[daysData, monthsData, yearsData]} dimensions={dimensions}/>}/>
         </Routes>
       </BrowserRouter>
