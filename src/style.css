@@ -10,6 +10,7 @@ body {
   .legendContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
     transform: translateY(-89px);
   }
   .checkbox {

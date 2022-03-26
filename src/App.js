@@ -40,7 +40,6 @@ function App() {
   // const nameRegion =  unique(region)
 
   const checkRegion = [...new Set(showData.map((d) => d.Region))]
-  console.log(checkRegion)
 
 //   console.log(showData)
 
@@ -158,8 +157,16 @@ console.log(showData)
                 path='/chart' 
                 element={
                   <>
-                    <Chart data={chartData} dimensions={dimensions}/>
-                    <Legend data={legendData} selectedItems={selectedItems} onChange = {onChangeSelection} />
+                    <Chart 
+                      data={chartData} 
+                      dimensions={dimensions}
+                    />
+                    <Legend 
+                      data={legendData} 
+                      selectedItems={selectedItems} 
+                      onChange = {onChangeSelection} 
+                      checkRegion = {checkRegion}
+                    />
                   </>
                 }
             />
