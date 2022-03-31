@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect } from 'react';
 import * as d3 from 'd3';
 
-const Chart = ({ data = [], dimensions = {} }) => {
+const Chart = ({region = {}, data = [], dimensions = {} }) => {
 
   const svgRef = React.useRef(null);
   const { width, height, margin = {} } = dimensions;
@@ -10,6 +10,8 @@ const Chart = ({ data = [], dimensions = {} }) => {
 
 
   useEffect(() => {
+    // console.log(region[1].map((X)))
+    // const check_Region = check_Africa_Region.filter(x => x.Region === 'Africa Region')
 
     const xScale = d3
       .scaleTime()
@@ -46,8 +48,8 @@ const Chart = ({ data = [], dimensions = {} }) => {
       const yScale = d3
         .scaleLinear()
         .domain([
-          d3.min(data[0].items.slice(0,18), (d) => d.value) - 10,
-          d3.max(data[0].items.slice(0,18), (d) => d.value) + 10
+          d3.min(data[0].items.slice(0,18), (d) => d.value) - 11,
+          d3.max(data[0].items.slice(0,18), (d) => d.value) + 25
         ])
         .range([height, 0]);
 
@@ -132,7 +134,7 @@ const Chart = ({ data = [], dimensions = {} }) => {
       .attr("fill", "none")
       .attr("stroke", (d) => d.color)
       .attr("stroke-width", 3)
-      .attr("d", (d) => line(d.items.slice(0,18)));
+      .attr("d", (d) => line(d.items));
 
       console.log(data)
   }, [data])

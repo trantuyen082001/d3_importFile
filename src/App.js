@@ -104,8 +104,13 @@ function App() {
     color: "#ffffff",
     items: showData.map((d) => ({ value: d['0-27 days'], date: new Date(d.Year) }))
   }
-
-  console.log(daysData.items)
+  // const daysDatas = {
+  //   name: "0-27 days",
+  //   color: "#ffffff",
+  //   items: showData.map((d) => ({ ...d, date: new Date(d.Year) }))
+  // }
+  
+  // console.log(daysDatas.items.filter(x => x.Region === 'Region of the Americas'))
 
   const monthsData = {
     name: "1-59 months",
@@ -118,8 +123,29 @@ function App() {
     items: showData.map((d) => ({ value: d['1-4 years'], date: new Date(d.Year) }))
   }
 
+  // var checkDataRegion = showData.values();
+  // for(let elements of checkDataRegion) {  
+  //   console.log(elements)
+  // }
 
+  // const checkRegions = showData.find((x) => x.Region === 'Africa Region');
+  // console.log(checkRegions);
 
+  const check_Africa_Region = showData.filter(x => x.Region === 'Africa Region')
+  const check_Region_of_the_Americas = showData.filter(x => x.Region === 'Region of the Americas')
+  const check_South_East_Asia_Region = showData.filter(x => x.Region === 'South-East Asia Region')
+  const check_European_Region = showData.filter(x => x.Region === 'European Region')
+  const check_Eastern_Mediterranean_Region = showData.filter(x => x.Region === 'Eastern Mediterranean Region')
+  const check_Western_Pacific_Region = showData.filter(x => x.Region === 'Western Pacific Region')
+  // console.log(check_Africa_Region)
+  // console.log(check_Region_of_the_Americas.map((x) => x['1-4 years']))
+  // console.log(check_South_East_Asia_Region)
+  // console.log(check_European_Region)
+  // console.log(check_Eastern_Mediterranean_Region)
+  // console.log(check_Western_Pacific_Region)
+
+  // const data_region = showData.filter(x => x.Region === )
+  
   const dimensions = {
     width: 900,
     height: 500,
@@ -131,7 +157,7 @@ function App() {
     }
   };
 
-console.log(showData)  
+  // ======== CHECK BOX ========
   // console.log(RegionData)
   const [selectedItems, setSelectedItems] = useState([]);
   const legendData = [daysData, monthsData, yearsData];
@@ -139,7 +165,13 @@ console.log(showData)
     daysData,
     ...[monthsData, yearsData].filter((d) => selectedItems.includes(d.name))
   ];
+  // ========= CHANGE REGION ========   
+  const [regionCurr, setRegionCurr] = useState([]);
+  const regionCharts = showData.filter((d) => regionCurr.includes(d.Region))
+  console.log(regionCharts)
 
+  const chartRegions = showData.filter(x => x.Region);
+  console.log(chartRegions)
 
   const onChangeSelection = (name) => {
     const newSelectedItems = selectedItems.includes(name)
@@ -158,10 +190,28 @@ console.log(showData)
                 element={
                   <>
                     <Chart 
+                      region= 
+                        {[
+                          check_Africa_Region,
+                          check_Region_of_the_Americas, 
+                          check_South_East_Asia_Region,
+                          check_European_Region,
+                          check_Eastern_Mediterranean_Region,
+                          check_Western_Pacific_Region
+                        ]}
                       data={chartData} 
                       dimensions={dimensions}
                     />
-                    <Legend 
+                    <Legend
+                      regions= 
+                      {[
+                        check_Africa_Region,
+                        check_Region_of_the_Americas, 
+                        check_South_East_Asia_Region,
+                        check_European_Region,
+                        check_Eastern_Mediterranean_Region,
+                        check_Western_Pacific_Region
+                      ]} 
                       data={legendData} 
                       selectedItems={selectedItems} 
                       onChange = {onChangeSelection} 
