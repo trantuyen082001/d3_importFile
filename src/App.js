@@ -5,6 +5,7 @@ import Chart from './Chart/Chart';
 import Histogram from './Chart/Histogram'
 import Legend from './view/Legend';
 import "./style.css";
+import { filter } from 'd3';
 
 
 function App() {
@@ -32,46 +33,30 @@ function App() {
     const [regionCurr, setRegionCurr] = useState([])
     const onChangeRegion = (e) => {
       const dataFloRegion = showData.filter(x => x.Region === e.target.value)
-      console.log(e.target.value)
-      console.log(dataFloRegion)
       setRegionCurr(dataFloRegion)
   }
   
 
   const checkRegion = [...new Set(showData.map((d) => d.Region))]
 
-  const daysData = {
-    name: "0-27 days",
-    color: "#ffffff",
-    items: showData.map((d) => ({ value: d['0-27 days'], date: new Date(d.Year) }))
-  }
-
-  const monthsData = {
-    name: "1-59 months",
-    color: "#d53e4f",
-    items: showData.map((d) => ({ value: d['1-59 months'], date: new Date(d.Year)}))
-  }
-  const yearsData = {
-    name: "1-4 years",
-    color: "#5e4fa2",
-    items: showData.map((d) => ({ value: d['1-4 years'], date: new Date(d.Year) }))
-  }
-  
+  const filterAtrr = showData.columns;
+  console.log(filterAtrr)
 
   const dayRegions = {
-    name: "0-27 days",
+    name: filterAtrr[2],
     color: "#ffffff",
-    items: regionCurr.map((d) => ({ value: d['0-27 days'], date: new Date(d.Year) }))
+    items: regionCurr.map((d) => ({ value: d[filterAtrr[2]], date: new Date(d.Year) }))
 }
+
 const monthRegions = {
-    name: "1-59 months",
+    name: filterAtrr[3],
     color: "#d53e4f",
-    items: regionCurr.map((d) => ({ value: d['1-59 months'], date: new Date(d.Year) }))
+    items: regionCurr.map((d) => ({ value: d[filterAtrr[3]], date: new Date(d.Year) }))
 }
 const yearRegions = {
-    name: "1-4 years",
+    name: filterAtrr[4],
     color: "#5e4fa2",
-    items: regionCurr.map((d) => ({ value: d['1-4 years'], date: new Date(d.Year) }))
+    items: regionCurr.map((d) => ({ value: d[filterAtrr[4]], date: new Date(d.Year) }))
 }
 
 
@@ -86,8 +71,6 @@ const yearRegions = {
     }
   };
 
-  console.log(checkRegion)
-
   // ======== CHECK BOX ========
   // console.log(RegionData)
   const [selectedItems, setSelectedItems] = useState([]);
@@ -97,15 +80,6 @@ const yearRegions = {
     ...[monthRegions, yearRegions].filter((d) => selectedItems.includes(d.name))
   ];
 
-console.log(regionCurr.map((x)=> (x.Region)))
-
-
-
-console.log(dayRegions)
-console.log(monthRegions) 
-console.log(yearRegions)
-
-  
 
   const onChangeSelection = (name) => {
     const newSelectedItems = selectedItems.includes(name)
@@ -139,7 +113,7 @@ console.log(yearRegions)
                   </>
                 }
             />
-           <Route path='/histogram' element={<Histogram data={[daysData, monthsData, yearsData]} dimensions={dimensions}/>}/>
+           {/* <Route path='/histogram' element={<Histogram data={[daysData, monthsData, yearsData]} dimensions={dimensions}/>}/> */}
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Form} from 'react-bootstrap'
 
-const Legend = ({showData,data, selectedItems, onChange, onClick, checkRegion}) => {
+const Legend = ({showData, data, selectedItems, onChange, onClick, checkRegion}) => {
 
     // const onChangeRegion = (e) => {
     //     const dataFloRegion = showData.filter(x => x.Region === e.target.value)

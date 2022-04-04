@@ -47,10 +47,7 @@ const Chart = ({regionCurr={}, data = [], dimensions = {} }) => {
 
       const yScale = d3
         .scaleLinear()
-        .domain([
-          d3.min(data[0].items, (d) => d.value) - 11,
-          d3.max(data[0].items, (d) => d.value) + 25
-        ])
+        .domain([-2,15])
         .range([height, 0]);
 
       const yAxis = d3
@@ -83,11 +80,7 @@ const Chart = ({regionCurr={}, data = [], dimensions = {} }) => {
       .attr("stroke-width", 3)
       .attr("d", (d) => line(d.items));
 
-      console.log(data)
-      console.log(regionCurr )
   }, [data])
-
-
 
   return (
     <svg ref={svgRef} width={svgWidth} height={svgHeight} />
